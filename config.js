@@ -22,7 +22,7 @@ module.exports = {
   ],
   author: {
     name: 'Guillaume Lambert',
-    photo: '/profile_pic.png',
+    photo: '/photo.jpg',
     bio: 'Team Lead @ Aircall. I gather here interesting articles and resources about Javascript development',
     contacts: {
       email: 'guillaume.p.lambert@gmail.com',
