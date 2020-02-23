@@ -3,11 +3,11 @@
 module.exports = {
   url: 'https://lumen.netlify.com',
   pathPrefix: '/',
-  title: 'Blog by John Doe',
-  subtitle: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+  title: 'Blog by Guillaume Lambert',
+  subtitle: 'I gather here interesting articles about Javascript development',
   copyright: '© All rights reserved.',
   disqusShortname: '',
-  postsPerPage: 4,
+  postsPerPage: 10,
   googleAnalyticsId: 'UA-73379983-2',
   useKatex: false,
   menu: [
@@ -18,26 +18,22 @@ module.exports = {
     {
       label: 'About me',
       path: '/pages/about'
-    },
-    {
-      label: 'Contact me',
-      path: '/pages/contacts'
     }
   ],
   author: {
-    name: 'John Doe',
-    photo: '/photo.jpg',
-    bio: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+    name: 'Guillaume Lambert',
+    photo: '/profile_pic.png',
+    bio: 'Team Lead @ Aircall. I gather here interesting articles and resources about Javascript development',
     contacts: {
-      email: '',
-      facebook: '#',
-      telegram: '#',
-      twitter: '#',
-      github: '#',
+      email: 'guillaume.p.lambert@gmail.com',
+      facebook: '',
+      telegram: '',
+      twitter: 'https://twitter.com/shipasap',
+      github: 'https://github.com/litil',
       rss: '',
       vkontakte: '',
-      linkedin: '#',
-      instagram: '#',
+      linkedin: 'https://www.linkedin.com/in/guillaumelambert/',
+      instagram: 'https://www.instagram.com/litil/',
       line: '',
       gitlab: '',
       weibo: '',
