@@ -82,7 +82,7 @@
   Link: </js-blog/styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
   Link: </js-blog/commons-b789f2d843cf70f45827.js>; rel=preload; as=script
   Link: </js-blog/component---src-templates-not-found-template-js-03a49449e1a83219ee25.js>; rel=preload; as=script
-/js-blog/pages/contacts/
+/js-blog/pages/about/
   Link: </js-blog/webpack-runtime-1937e0735f5d2aecc233.js>; rel=preload; as=script
   Link: </js-blog/styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
   Link: </js-blog/commons-b789f2d843cf70f45827.js>; rel=preload; as=script
@@ -91,7 +91,7 @@
   Link: </js-blog/styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
   Link: </js-blog/commons-b789f2d843cf70f45827.js>; rel=preload; as=script
   Link: </js-blog/component---src-templates-page-template-js-814e63885548285c5ec8.js>; rel=preload; as=script
-/js-blog/pages/about/
+/js-blog/pages/contacts/
   Link: </js-blog/webpack-runtime-1937e0735f5d2aecc233.js>; rel=preload; as=script
   Link: </js-blog/styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
   Link: </js-blog/commons-b789f2d843cf70f45827.js>; rel=preload; as=script
