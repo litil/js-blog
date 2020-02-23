@@ -1,0 +1,995 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog by Guillaume Lambert]]></title><description><![CDATA[I gather here interesting articles about Javascript development]]></description><link>https://lumen.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 23 Feb 2020 16:14:31 GMT</lastBuildDate><item><title><![CDATA[04. Couting the Values - Part 1]]></title><description><![CDATA[In this module, we’ll take a closer look at the JavaScript world and the values in it. But before we can get to that, we need to address the elephant in the room. Is the JavaScript world even real?]]></description><link>https://lumen.netlify.com/posts/04-counting-the-values-part-1</link><guid isPermaLink="false">https://lumen.netlify.com/posts/04-counting-the-values-part-1</guid><pubDate>Sat, 22 Feb 2020 23:11:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;em&gt;Written by &lt;strong&gt;Dan Abramov&lt;/strong&gt;, as part of the “Just Javascript” newsletter.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;In this module, we’ll take a closer look at the JavaScript world and the values in it. But before we can get to that, we need to address the elephant in the room. &lt;em&gt;Is the JavaScript world even real?&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&quot;the-javascript-simulation&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#the-javascript-simulation&quot; aria-label=&quot;the javascript simulation permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;The JavaScript Simulation&lt;/h2&gt;
+&lt;p&gt;I live on my small asteroid inside the JavaScript universe.&lt;/p&gt;
+&lt;p&gt;When I ask the JavaScript world a question, it answers me with a value. I certainly don’t come up with all these values by myself. The variables, the wires, the values — they all populate my world. The JavaScript world around me is absolutely real to me — just as the world you live in is real to you.&lt;/p&gt;
+&lt;p&gt;But sometimes, there is a moment of silence before the next line of code. An idle tick before the next function call. A glitch in the Matrix. During those moments, I see visions of a world that’s much bigger than mine.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/js-blog/1f8d1b19cd13abc2bd6924c5eb53c42b/04-is-js-world-real.gif&quot; alt=&quot;Is the JavaScript world even real?&quot;&gt;&lt;/p&gt;
+&lt;p&gt;In the world that appears to me, there are no variables and values. No expressions and no literals. Instead, there are quarks, and atoms, and electrons, and water, and life. Perhaps, you are familiar with this world?&lt;/p&gt;
+&lt;p&gt;There, sentient beings called “humans” use special machines called “computers” to simulate my JavaScript universe. Some of them do it for amusement. Some of them do it for profit. Some of them do it for no reason at all. At their whim, my whole world gets born and dies a trillion times a day.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Maybe my JavaScript world isn’t so real, after all.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;This means there are two ways to study it.&lt;/p&gt;
+&lt;h3 id=&quot;studying-from-the-outside&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#studying-from-the-outside&quot; aria-label=&quot;studying from the outside permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Studying From the Outside&lt;/h3&gt;
+&lt;p&gt;One way to study my JavaScript world would be to study it from the &lt;em&gt;outside.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Perhaps, you might focus on how a simulation of my world — a JavaScript engine — “really” works. For example, you might learn that this string of text — a value &lt;em&gt;in my world&lt;/em&gt; — is a sequence of bytes stored inside a silicon chip.&lt;/p&gt;
+&lt;p&gt;This approach puts our mental focus on the physical world of people and computers. Some tutorials take this approach. But my approach is different.&lt;/p&gt;
+&lt;h3 id=&quot;studying-from-the-inside&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#studying-from-the-inside&quot; aria-label=&quot;studying from the inside permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Studying From the Inside&lt;/h3&gt;
+&lt;p&gt;We will be studying the JavaScript world from the &lt;em&gt;inside&lt;/em&gt;. Transport yourself mentally into the JavaScript universe and stand next to me. We will observe its laws and perform experiments, like physicists do in the physical universe.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;We will learn about the JavaScript world for what it is — without thinking about how it’s implemented. This is similar to how physicists can talk about properties of stars without answering the question whether the physical world is real. It doesn’t matter! We can still describe it on its own terms.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Our mental model does not attempt to answer questions like “How is a value represented in the computer memory?” The answer changes all the time! In fact, the answer to this question changes even &lt;a href=&quot;https://v8.dev/blog/react-cliff?ck_subscriber_id=735237872&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;while your program is running&lt;/a&gt;. If you heard of a simple explanation about how JavaScript “really” represents numbers, strings, or objects in memory, it is most likely wrong.&lt;/p&gt;
+&lt;p&gt;To me, each string is a value. Not a “pointer” or a “memory address” — but a value. In my universe, &lt;strong&gt;a value is good enough&lt;/strong&gt;. Don’t allow “memory cells” and other low-level metaphors to distract you from building an accurate high-level mental model of JavaScript. It’s turtles all the way down anyway!&lt;/p&gt;
+&lt;p&gt;If you’re coming from a lower-level language, set aside your intuitions about “passing by reference”, “allocating on stack”, “copying on write”, and so on. These models of how a computer works often make it harder to be confident what can or cannot happen in a JavaScript program. We’ll look at some of the lower level details, but only &lt;a href=&quot;https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/?ck_subscriber_id=735237872&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;where it really matters&lt;/a&gt;. They can serve as an addition to our mental model, rather than its foundation.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Instead, the foundation of our mental model is that our world is full of values.&lt;/strong&gt; Each value belongs to one of a few built-in types. Some of them are primitive, which makes values of those types immutable. Variables are “wires” pointing from names in our code to values. And we’ll keep building on that foundation.&lt;/p&gt;
+&lt;p&gt;As for these strange visions, I don’t pay as much thought to them anymore. I have wires to point, questions to ask, and functions to call. I better get to it!&lt;/p&gt;
+&lt;p&gt;The stars are bright when I look at them.&lt;/p&gt;
+&lt;p&gt;Are they still there when I blink?&lt;/p&gt;
+&lt;p&gt;I shrug.&lt;/p&gt;
+&lt;p&gt;“Implementation details.”&lt;/p&gt;
+&lt;h2 id=&quot;counting-the-values&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#counting-the-values&quot; aria-label=&quot;counting the values permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Counting the Values&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=eSukMy8DyfY&amp;#x26;ck_subscriber_id=735237872&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Count von Count&lt;/a&gt; was my childhood role model. If you’re not familiar with him from the Sesame Street, his favorite pastime is counting things. Today, Count von Count will join us in counting every value in the JavaScript universe.
+You might wonder: what’s the point of counting values? We’re not in an arithmetics class, are we? The essence of counting is to distinguish things from one another.&lt;/p&gt;
+&lt;p&gt;You can only say there are “two apples” when you clearly see that they’re two &lt;em&gt;distinct&lt;/em&gt; apples. Distinguishing values from one another is key to understanding &lt;em&gt;equality&lt;/em&gt; in JavaScript — which will be our next topic.&lt;/p&gt;
+&lt;p&gt;Like Virgil guided Dante through the nine circles of Hell, Count von Count will accompany us through the “celestial spheres” of JavaScript to meet different values: Booleans, Numbers, Strings, and so on. Consider it a sightseeing tour.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 800px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/js-blog/static/74cf9cbc7de06918d3bd4876ba2ef01d/5a190/04-js-types.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 119.625%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAYCAIAAAB1KUohAAAACXBIWXMAAAsSAAALEgHS3X78AAACmElEQVQ4y41UW4vTQBjt31EQH8S/ow/+BkEffBAWVhYUFRFE8MUH3/Zxn3ZRcV2odtW223u2SZqmzaXN/TLJJNGTTA3btIX9CMNMZs53znyXqf29tvkBOfr8u9kVMM+yDGNt8xA2oiiiNMH83fsPL1+/ZfOTs/bjg097bw4FSWPHaltJ0jTFyHHjm7fv3rh1p/6jgeVcWXw8/Pql3nN9koMrzEyMaZr7+wfHxyeYP9179vDRE8dx0yxzHYfjuPl8llCaFbYGTpJcXqvVvnf/wfMXr9gSpmpafzC0LCuOqabpnW5P1xdQt122FwQ0zQzDmCuK63lRFGMc84LrutgNgnC5NOB6DaxpGtumlOb6LZvnRUGc8II4ncq27SCQLBxxHK/Jhqdmq41Dnuctl6Y4kTA3DBNLQgiUX3S6EIKTWDIXtasRtm07CAKER1FUTdcnE0kUJ6ZpMSp49zw/KYxBVmBcAyRMFeQBCl5VUXEO8ghZqaUJhZeSbwXudLs/G+e+H6Rp1h+MJGkKQlXV4A7gkqpiNZbeMAwhGF5xGhIAFgQBf7BbVBvdCS5LEhPEFp++0GEhIbnfYtwJRjybzRYKi/0KQwIhjI2FJy3qaQvY9/1ery/LM1IwQDCKKSIRroAgMQwGFrkqGH8ZCfaQmMFgiB5Czkow/Q9jAa/KpnkCPcdxpKkMDM8LqD4SRXmQC7IkzfHwVMHnYEj9dvpdUdViLueFZZpIdc7GAJBdwLaAcW10DDYQ8NGIQ3kPhiPg4+I6K8DWgJWpwiF9sUCcURtTeYYidYom2bxqtUgwNs5/nZ7VUdUQMhxxZRnuSvJaY8wV9fJybFpW0Zs6WoPJznY/ibXNpwucf1oXeLeAvy7zVbNsG/ff1Q+l/QPtZ13y9llLFAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/74cf9cbc7de06918d3bd4876ba2ef01d/8ac56/04-js-types.webp 240w,
+/js-blog/static/74cf9cbc7de06918d3bd4876ba2ef01d/d3be9/04-js-types.webp 480w,
+/js-blog/static/74cf9cbc7de06918d3bd4876ba2ef01d/d00b9/04-js-types.webp 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/74cf9cbc7de06918d3bd4876ba2ef01d/8ff5a/04-js-types.png 240w,
+/js-blog/static/74cf9cbc7de06918d3bd4876ba2ef01d/e85cb/04-js-types.png 480w,
+/js-blog/static/74cf9cbc7de06918d3bd4876ba2ef01d/5a190/04-js-types.png 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/js-blog/static/74cf9cbc7de06918d3bd4876ba2ef01d/5a190/04-js-types.png&quot;
+          alt=&quot;JavaScript types&quot;
+          title=&quot;JavaScript types&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;undefined&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#undefined&quot; aria-label=&quot;undefined permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Undefined&lt;/h3&gt;
+&lt;p&gt;We’ll start our tour with the Undefined type. Count von Count will be pleased to know that &lt;strong&gt;there is only one value of that type — undefined.&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(typeof(undefined)); // &amp;quot;undefined&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 800px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/js-blog/static/2fd3e0332664d6b2f6e78d218d34eded/5a190/04-undefined.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 66.75%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAAAsSAAALEgHS3X78AAABq0lEQVQoz6VSu0vDQBzOv+jiJE6CKKI46iCIOKgoiJsKrVMrFFx8DRZ8O4giiA9E2yraJmnz6OUud5c2V780GhVBBb8hJHe/775HTlOtCMTzd44vD05vXcLwqeLV36BFTMbnU1tD4+nB8XQ6t+dz+X1OKeX7vu04jDEpg0ajEZHxspTJz6c2U7ndxUx+bnljKZunjEeENg1zTSAMpZScC8Oscs5lEGBVC5W6vH2aXV4fncmOTGcWVrYvrkvYAQ0UQjwQhIyGYwuW7XiU4kUIoal2vrtiBcrw/Kxb8RAopll163WzWoPVWs2KLZQretgGjGhxniRYdKSUyFYsPRWKj6NjE909fYViqQpys4mDElnwtU+VRE/Hde/uC2fnF70Dw909/R2dXbv7h1CjjNm2YzsuZsJmiCRvbSeAk4OjE90wMT05NbeaW/M8WicEOW3bRoS3RFzEHj/IKBRNXl3fBEGQLBJCdMOoWRaj7F0A3TU+/nMMSilaQU9wiH30rOsGXCAkekpKgcaXS5KI3D8UBNhCEM+DGgyrH+/al8yo9KVcAQd89YcrqrX+gVe4hditgl36kwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/2fd3e0332664d6b2f6e78d218d34eded/8ac56/04-undefined.webp 240w,
+/js-blog/static/2fd3e0332664d6b2f6e78d218d34eded/d3be9/04-undefined.webp 480w,
+/js-blog/static/2fd3e0332664d6b2f6e78d218d34eded/d00b9/04-undefined.webp 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/2fd3e0332664d6b2f6e78d218d34eded/8ff5a/04-undefined.png 240w,
+/js-blog/static/2fd3e0332664d6b2f6e78d218d34eded/e85cb/04-undefined.png 480w,
+/js-blog/static/2fd3e0332664d6b2f6e78d218d34eded/5a190/04-undefined.png 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/js-blog/static/2fd3e0332664d6b2f6e78d218d34eded/5a190/04-undefined.png&quot;
+          alt=&quot;Undefined type&quot;
+          title=&quot;Undefined type&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;It’s called undefined so you might think it’s not there — but it is a value, and a very real one! Like a &lt;em&gt;black hole&lt;/em&gt;, undefined is grumpy and can often spell trouble. For example, reading a property from it will break your program:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;let person = undefined;
+console.log(person.mood); // TypeError!&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Oh, well. Luckily, there is only one undefined in the entire JavaScript universe. You might wonder: why does it exist at all? In JavaScript, it represents the concept of an unintentionally missing value.&lt;/p&gt;
+&lt;p&gt;You could use it in your own code by writing undefined — like you write 2 or “hello”. However, undefined also commonly “occurs naturally”. It shows up in some situations where JavaScript doesn’t know what value you wanted. For example, if you forget to assign a variable, it will point to undefined:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;let bandersnatch;
+console.log(bandersnatch); // undefined&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 800px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/js-blog/static/0b1375c261dfd849089e52e48a27e520/5a190/04-undefined-value.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 28.625%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAIAAABM9SnKAAAACXBIWXMAAAsSAAALEgHS3X78AAAA8klEQVQY041QS2vCQBDeP917sbc2iJRSFQUPHmoP1rYi6M3HwYtgQ1RSjW7WYpXEds1jE5NsYycGggeh/RiGeX3zQocjwjBM9FnEqe23udFpEPA4gv4kJIYkk0vh4eKqVK62Of+BCFLmC5UsQUujCcZktfokZDmR5TnGlFLf9wPOPW/f7YuZQv22WL8rNa7vq4+vPe3LQPL7FGQ6U4ZvIlbJTFmAK0ojaKfpum3bjDHLsvqDca7cTOefb7JPQq5WeemtNYoMw2TMYY4TDYkAczzXdeluB5zwZG31QxOytVS60uoMoTZa+/A/xHw41bSd5Lu/waZIWzkD3QsAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/0b1375c261dfd849089e52e48a27e520/8ac56/04-undefined-value.webp 240w,
+/js-blog/static/0b1375c261dfd849089e52e48a27e520/d3be9/04-undefined-value.webp 480w,
+/js-blog/static/0b1375c261dfd849089e52e48a27e520/d00b9/04-undefined-value.webp 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/0b1375c261dfd849089e52e48a27e520/8ff5a/04-undefined-value.png 240w,
+/js-blog/static/0b1375c261dfd849089e52e48a27e520/e85cb/04-undefined-value.png 480w,
+/js-blog/static/0b1375c261dfd849089e52e48a27e520/5a190/04-undefined-value.png 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/js-blog/static/0b1375c261dfd849089e52e48a27e520/5a190/04-undefined-value.png&quot;
+          alt=&quot;Undefined value&quot;
+          title=&quot;Undefined value&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Then you can point it to another value, or to &lt;em&gt;undefined&lt;/em&gt; again if you want.&lt;/p&gt;
+&lt;p&gt;Don’t get too hung up on its name. It’s tempting to think of undefined as some kind of variable status, e.g. “this variable is not yet defined”. But that’s a completely misleading way to think about it! In fact, if you read a variable that was &lt;em&gt;actually&lt;/em&gt; not defined (or before the let declaration), you will get an error:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(jabberwocky); // ReferenceError!
+let jabberwocky;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That has nothing to do with undefined.&lt;/p&gt;
+&lt;p&gt;Really, &lt;em&gt;undefined&lt;/em&gt; is a regular primitive value, like 2 or “hello”.
+Handle it with care.&lt;/p&gt;
+&lt;h3 id=&quot;null&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#null&quot; aria-label=&quot;null permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Null&lt;/h3&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 800px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/js-blog/static/4eed8837f571e9380529e505f67612a1/5a190/04-null-type.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 71.25%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAIAAACgpqunAAAACXBIWXMAAAsSAAALEgHS3X78AAACOUlEQVQoz2P4////06fP6hpbyypr7967D+T++/cPTr57927Hzn0zZy+eNXfJwcPHfv76CRT8+/fvfzBgAOKUjFwRKUUVDYPktOxfv37BdS5fud7JPVJN21FS1khMSk9aztAnIOrylatg/SAFDJ+/fPHwCQoMjYqOS3Zw8Xr16jXE1ElT58irWqtq2GvpOukbexmaeusbe8oqmatpm1+8eBliP8jm3glT5JS1gAjoeIjO06fPq2k76Oi7GZv7mVoHGVsE6Bl5aug46ug78wopOjh5I5wNNOPw0eP79h8Cuhni4Oq6TkU1Oyv7cGNLfwNTHw1tBxV1axV1G1V1ayk5HXYusR079kA1wwFE5+fPX4LC0gzMAsxtQ4FIz8hDWc1KRcNaRcNGWdVCSl6bkVmotb0XofkvGEAYL1688vCOMjDztbQLA+pU1bABW2utomYlr2QkKqXCxiVd19CJbjMchEelKqiYq2sCrbIEalPTADlYUdlYRFJFTEpNQExj1pwlWDT/+fMHSE6YNIOXX15VzUxV3UpV3VJR2URaVltUUkVEQkVcRltN1+HW7XtYNEO8DYwwM0tXUQl1eQU9SWkNUQllYQkloE4JGU0hCd2GlkkQlVicDfH8qdPndPStOXmkBEQUhMSURKU0xaR1pJUsS6p6Pn78jIgqLPrB9j94+LiiqtXE3F1L39HYwjc4MnfZyq0/fvyAK8OuGe5+IPj06cutW/ceP3728yc05cKlcGqGqIOkYTQXwQEAluIfr7GyGnIAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/4eed8837f571e9380529e505f67612a1/8ac56/04-null-type.webp 240w,
+/js-blog/static/4eed8837f571e9380529e505f67612a1/d3be9/04-null-type.webp 480w,
+/js-blog/static/4eed8837f571e9380529e505f67612a1/d00b9/04-null-type.webp 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/4eed8837f571e9380529e505f67612a1/8ff5a/04-null-type.png 240w,
+/js-blog/static/4eed8837f571e9380529e505f67612a1/e85cb/04-null-type.png 480w,
+/js-blog/static/4eed8837f571e9380529e505f67612a1/5a190/04-null-type.png 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/js-blog/static/4eed8837f571e9380529e505f67612a1/5a190/04-null-type.png&quot;
+          alt=&quot;Null type&quot;
+          title=&quot;Null type&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;You can think of &lt;em&gt;null&lt;/em&gt; as undefined’s sister. It behaves very similarly. For example, it will also throw a fuss when you try to access its properties:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;let mimsy = null;
+console.log(mimsy.mood); // TypeError!&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 800px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/js-blog/static/b5fe90bc56b51ffbae4340318d01d561/5a190/04-null-value.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 32.25%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAIAAABM9SnKAAAACXBIWXMAAAsSAAALEgHS3X78AAABCklEQVQY02P49///379//yOBf//+/fnz5/fv30AGRASiYM68hTIKapKyyioaestXrgaKMAAVvHr9+ubNW/cfPLz/AAge3r5z9/37D0Dw8+dPoLZfv34BTXn0+LG5taONg6udo3tEdLyNvevnz58ZgAYAtZ09d37b9p3nL1w8eer05q3bgewLFy59/fr1+/fvHz9++vHjx8bNW3UMzMIi47LzCuOTUg1MLF+/fsMANPvVq1dfvnz9+OnTx48f3717//r162PHTwANQvYIkMzMKeQXlgK6WUhctqi0EuRsIAa68M3bt58+fvr8+QvQql+/fwNJoG1ofn777l1Hd190XHJP3ySgc6CayQYAru4p2h7LXO4AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/b5fe90bc56b51ffbae4340318d01d561/8ac56/04-null-value.webp 240w,
+/js-blog/static/b5fe90bc56b51ffbae4340318d01d561/d3be9/04-null-value.webp 480w,
+/js-blog/static/b5fe90bc56b51ffbae4340318d01d561/d00b9/04-null-value.webp 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/b5fe90bc56b51ffbae4340318d01d561/8ff5a/04-null-value.png 240w,
+/js-blog/static/b5fe90bc56b51ffbae4340318d01d561/e85cb/04-null-value.png 480w,
+/js-blog/static/b5fe90bc56b51ffbae4340318d01d561/5a190/04-null-value.png 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/js-blog/static/b5fe90bc56b51ffbae4340318d01d561/5a190/04-null-value.png&quot;
+          alt=&quot;Null value&quot;
+          title=&quot;Null value&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Similarly to undefined, &lt;strong&gt;null is the only value of its own type&lt;/strong&gt;. However, &lt;em&gt;null&lt;/em&gt; is also a liar. Due to a &lt;a href=&quot;https://2ality.com/2013/10/typeof-null.html?ck_subscriber_id=735237872&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;bug&lt;/a&gt; in JavaScript, it pretends to be an object:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(typeof(null)); // &amp;quot;object&amp;quot; (a lie!)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You might think this means null is an object. Don’t fall into this trap! It is a primitive value, and it doesn’t behave in any way like an object. Unfortunately, &lt;em&gt;typeof(null)&lt;/em&gt; is a historical accident that we’ll have to live with forever.&lt;/p&gt;
+&lt;p&gt;In practice, &lt;em&gt;null&lt;/em&gt; is used for &lt;em&gt;intentionally&lt;/em&gt; missing values. Why have both &lt;em&gt;null&lt;/em&gt; and &lt;em&gt;undefined&lt;/em&gt;? This could help you distinguish a coding mistake (which might result in &lt;em&gt;undefined&lt;/em&gt;) from valid missing data (which you might express as &lt;em&gt;null&lt;/em&gt;). However, this is only a convention, and JavaScript doesn’t enforce this usage. Some people avoid both of them as much as possible!&lt;/p&gt;
+&lt;p&gt;I don’t blame them.&lt;/p&gt;
+&lt;h3 id=&quot;booleans&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#booleans&quot; aria-label=&quot;booleans permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Booleans&lt;/h3&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 800px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/js-blog/static/fe71cc2b49d68b8288e8acd2f10b5dd9/5a190/04-booleans.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 73.625%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAIAAABr+ngCAAAACXBIWXMAAAsSAAALEgHS3X78AAACI0lEQVQoz2P4////v3///uMAQIk/f/5A2EAGmkoGCP/48RM1dXXz5i/49u0b3DishiILMgDxvv0HVDU0lVRVlVXVyiurgCJ///6FKLp1+253/6TMvKL07ML2rt5LV64CBX/D3ALSfOz48ZzcvIKiovTMLFt7h5cvX0LkFi9dYWRuK6+mqwBGMkqaGnqm02fNg5iOcPbr169v3bz56NGj58+ff/r8GSjy8MmzwPBYJQ09HSMLIwtbPWNLXWMrdT1TcTnV+YuWQoKAAWLM169f37x58+79e4hZv3//ef3x2+dff7fu2u/g6q2mbahjbKVhYK5paKGoYWBkaf/8xUuos+EhAQ+Kr99/Pnn96d2Xn0DPXbv90MUrUFHTQMvIUlXHWFnTUEhScdnKNSiakcHHL98fvfz46v33h8/evfr48+Dxc8aWjhCd8iq6AmLyXX2TcGr+9OX77UevH7/4+ODZu5v3nz988XHOojXAAJNT0ZFX1QFqnjxtFk7NP3/9vnnvxe2Hr4Do6p1n5649vHznZV5pA7+ItKyylqSCxpFjJ7Brhnj95dtPF248OXf90ZkrD09ffnD4zK09x66n5lbxCsvEJqVDwgi7zUAJYCp5+Ozt8fP39p24vvvola0Hzq/bdXr38Rsr1+988PARPs3whPjm/ZfLt54cPXv78Jmbpy7ee/z8HTRewM7DoxmajP/+AwbBn58/f0NSFTAJ/AEzCGgmCACJXdy8XI7/pQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/fe71cc2b49d68b8288e8acd2f10b5dd9/8ac56/04-booleans.webp 240w,
+/js-blog/static/fe71cc2b49d68b8288e8acd2f10b5dd9/d3be9/04-booleans.webp 480w,
+/js-blog/static/fe71cc2b49d68b8288e8acd2f10b5dd9/d00b9/04-booleans.webp 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/fe71cc2b49d68b8288e8acd2f10b5dd9/8ff5a/04-booleans.png 240w,
+/js-blog/static/fe71cc2b49d68b8288e8acd2f10b5dd9/e85cb/04-booleans.png 480w,
+/js-blog/static/fe71cc2b49d68b8288e8acd2f10b5dd9/5a190/04-booleans.png 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/js-blog/static/fe71cc2b49d68b8288e8acd2f10b5dd9/5a190/04-booleans.png&quot;
+          alt=&quot;Boolean type&quot;
+          title=&quot;Boolean type&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Like day and night, &lt;strong&gt;there are only two boolean values: true and false.&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(typeof(true)); // &amp;quot;boolean&amp;quot;
+console.log(typeof(false)); // &amp;quot;boolean&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We can perform logical operations with them:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;let isSad = true;
+let isHappy = !isSad; // The opposite
+let isFeeling = isSad || isHappy; // Is at least one of them true?
+let isConfusing = isSad &amp;amp;&amp;amp; isHappy; // Are both true?&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Count von Count would like to check your mental model now. Open a sketching app or take a piece of paper, and sketch out the variables, the values, and the wires between them for the above snippet of code.&lt;/p&gt;
+&lt;p&gt;Check your answer against this picture:&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/js-blog/static/179785fda72378ab7935358eb7f9242c/b6425/04-boolean-exercise.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 66.99486301369863%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAAAsSAAALEgHS3X78AAABxklEQVQoz3VS3TLDQBjts+DCMChewPBCvAIuTGtMX0B7xw23vTSmNxgMaVOR1GBaieZ/kzbZzV85aTIdhp5MNpvdPd/5vrNf4es3RqPR1xRMtpIknxTwBkHoeb5tE8oYcZw4juI4/pev6bphGJNAKRkrfFt45FoXl41nUWKUDoce4I8RhCGOJklSKpeXi6tLK8WjSiVXxsYwhYeHEAeTLCpOx2NQSvF7UCrNzM4V19Y3NrfmFxartVqu7Pu031df39413VBVTdN0x3HCMMzCZyWcnJ5u7+zs7u0fV6ul8uHZ+XlOjqJI6ryIUqctPCN5rsn3ejKMQM7YyrIA/lqQkm3iuIMBbBoMPWialg3xIAiyuCgJc/j0IcumaVqWRQjBIqpLySAoyueTIIIjywoMd91BMAZsy/K3bZvn+UajUa/XOY5jLMjJNiFI+/6Bu7q+bfFPXLMliBKYjLHJ3cZJ0u12IYNwkM2qSN2GFMqDgk8ZDumpberPxoBn4ER/Lj9VRg4wWfnsG6YlSS8YkUtfVdE20EfcidQ/ZHRDs9UWBBEjDEfmmMDz65s713WR/LSGHbcnY7hqtAdG9FP6oRS0D1nJrmoavgFZ786t/aaQxQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/179785fda72378ab7935358eb7f9242c/8ac56/04-boolean-exercise.webp 240w,
+/js-blog/static/179785fda72378ab7935358eb7f9242c/d3be9/04-boolean-exercise.webp 480w,
+/js-blog/static/179785fda72378ab7935358eb7f9242c/e46b2/04-boolean-exercise.webp 960w,
+/js-blog/static/179785fda72378ab7935358eb7f9242c/f992d/04-boolean-exercise.webp 1440w,
+/js-blog/static/179785fda72378ab7935358eb7f9242c/882b9/04-boolean-exercise.webp 1920w,
+/js-blog/static/179785fda72378ab7935358eb7f9242c/d0112/04-boolean-exercise.webp 2336w&quot;
+          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/179785fda72378ab7935358eb7f9242c/8ff5a/04-boolean-exercise.png 240w,
+/js-blog/static/179785fda72378ab7935358eb7f9242c/e85cb/04-boolean-exercise.png 480w,
+/js-blog/static/179785fda72378ab7935358eb7f9242c/d9199/04-boolean-exercise.png 960w,
+/js-blog/static/179785fda72378ab7935358eb7f9242c/07a9c/04-boolean-exercise.png 1440w,
+/js-blog/static/179785fda72378ab7935358eb7f9242c/29114/04-boolean-exercise.png 1920w,
+/js-blog/static/179785fda72378ab7935358eb7f9242c/b6425/04-boolean-exercise.png 2336w&quot;
+          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/js-blog/static/179785fda72378ab7935358eb7f9242c/d9199/04-boolean-exercise.png&quot;
+          alt=&quot;Boolean exercise&quot;
+          title=&quot;Boolean exercise&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;First, verify that &lt;em&gt;isHappy&lt;/em&gt; points to &lt;em&gt;false&lt;/em&gt;, &lt;em&gt;isFeeling&lt;/em&gt; points to &lt;em&gt;true&lt;/em&gt;, and &lt;em&gt;isConfusing&lt;/em&gt; points to &lt;em&gt;false&lt;/em&gt;. (If you got different answers, there is a mistake somewhere along the way — walk through each line step by step.)&lt;/p&gt;
+&lt;p&gt;Next, verify that &lt;strong&gt;there is only one true and one false value on your sketch&lt;/strong&gt;. Count von Count insists that this is important! Regardless of how booleans are stored in the memory, in our mental model there are only two of them.&lt;/p&gt;
+&lt;h3 id=&quot;numbers&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#numbers&quot; aria-label=&quot;numbers permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Numbers&lt;/h3&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 800px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/js-blog/static/f642ef811f738244a9359a65e3d38fae/5a190/04-number-type.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 64.875%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAAAsSAAALEgHS3X78AAABT0lEQVQoz4VSy07DMBDMxyMkPoVXhSpuBQonQAIOlCa5AJcmpY3jQGzXjhMnTLtSQEkpe4h2nZ2d2bG9pmnquqYvJTsCDc65tvRQWGtnsyjLPp3bBba2RABfbWINLoqiKsvx9Y0fhKjptB84R6dSK1IHSiQeTtOUB2H4+vaulCJVaKgqt4m6Xed5Mh0Oz5HnQgKFDTwUmAfZjDGtNS0GElMUEIkR+NDEOIoPj46ThNlyLRt/PVJFLIQ0xvx2hTQ7V3HOp37wlYsNn/oBtwFO+IdkFsWjyzG5SKZqbViaJSzlPKOeLljK9dpgmrz4g7Ph6OKKmLFF/yK74ITxRcLhAvLbu/uHx6fWhf476ILhGfBSaXTv7R+cnA6EkDiHEf3764IxOhdCGwOTP5ZLTFErg80x638wiRRCwBvon88XKc+20m4H081JKbECvZK/Huw3Z+3ziPIML7QAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/f642ef811f738244a9359a65e3d38fae/8ac56/04-number-type.webp 240w,
+/js-blog/static/f642ef811f738244a9359a65e3d38fae/d3be9/04-number-type.webp 480w,
+/js-blog/static/f642ef811f738244a9359a65e3d38fae/d00b9/04-number-type.webp 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/f642ef811f738244a9359a65e3d38fae/8ff5a/04-number-type.png 240w,
+/js-blog/static/f642ef811f738244a9359a65e3d38fae/e85cb/04-number-type.png 480w,
+/js-blog/static/f642ef811f738244a9359a65e3d38fae/5a190/04-number-type.png 800w&quot;
+          sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/js-blog/static/f642ef811f738244a9359a65e3d38fae/5a190/04-number-type.png&quot;
+          alt=&quot;Number type&quot;
+          title=&quot;Number type&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;So far, we counted exactly four values: &lt;em&gt;null&lt;/em&gt;, &lt;em&gt;undefined&lt;/em&gt;, &lt;em&gt;true&lt;/em&gt;, and &lt;em&gt;false&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Hold on, as we will add eighteen quintillion, four hundred and thirty-seven quadrillion, seven hundred and thirty-six trillion, eight hundred and seventy-four billion, four hundred and fifty-four million, eight hundred and twelve thousand, six hundred and twenty-four more values to our mental model!&lt;/p&gt;
+&lt;p&gt;I am, of course, talking about numbers:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(typeof(28)); // &amp;quot;number&amp;quot;
+console.log(typeof(3.14)); // &amp;quot;number&amp;quot;
+console.log(typeof(-140)); // &amp;quot;number&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;At first, numbers might seem unremarkable. Let’s look closer!&lt;/p&gt;
+&lt;h4 id=&quot;a-math-for-computers&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#a-math-for-computers&quot; aria-label=&quot;a math for computers permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;A Math for Computers&lt;/h4&gt;
+&lt;p&gt;JavaScript numbers don’t behave exactly the same way as regular mathematical numbers do. Here is a snippet that demonstrates it:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(0.1 + 0.2 === 0.3); // false
+console.log(0.1 + 0.2 === 0.30000000000000004); // true&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This might look very surprising! Contrary to a popular belief, this doesn’t mean that JavaScript numbers are broken. This behavior is common in different programming languages. It even has a name: &lt;em&gt;floating point math&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;You see, JavaScript doesn’t implement the kind of math we use in real life. &lt;/p&gt;
+&lt;p&gt;Floating point math is “math for computers”. Don’t worry too much about this name or how it works exactly. Very few people know about all its subtleties, and that’s the point! It works well enough in practice that most of the time you won’t think about it. Still, let’s take a quick look at what makes it different.&lt;/p&gt;
+&lt;h4 id=&quot;colors-and-numbers&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#colors-and-numbers&quot; aria-label=&quot;colors and numbers permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Colors and Numbers&lt;/h4&gt;
+&lt;p&gt;Have you ever used a scanner to turn a physical photo or a document into a digital one? This analogy can help us understanding JavaScript numbers.&lt;/p&gt;
+&lt;p&gt;Scanners usually distinguish at most 16 million colors. If you draw a picture with a red crayon and scan it, the scanned image should come out red too — but it will have the closest red color our scanner picked from those 16 million colors. So if you have two red crayons with ever so slightly different colors, the scanner might be fooled into thinking their color is exactly the same!&lt;/p&gt;
+&lt;p&gt;We can say that a scanner treats colors as having a limited precision.&lt;/p&gt;
+&lt;p&gt;Floating point math is similar. In real math, there is an infinite set of numbers. But in floating point math, &lt;strong&gt;there are only 18 quintillion of them&lt;/strong&gt;. So when we write numbers in our code or do calculations with them, JavaScript picks the closest numbers that it knows about — just like our scanner does with colors.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;In other words, JavaScript treats numbers as having a limited precision.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;We can imagine all of the JavaScript numbers on an axis. The closer we are to 0, the more precision numbers have, and the closer they “sit” to each other:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/js-blog/a20c1f9ff949975db3a16239487f87ed/04-javascript-precision.gif&quot; alt=&quot;Javascript precision&quot;&gt;&lt;/p&gt;
+&lt;p&gt;As we move from 0 in either direction, we start losing precision. At some point, even two closest JavaScript numbers stay further apart than by 1:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(Number.MAX_SAFE_INTEGER);     // 9007199254740991
+console.log(Number.MAX_SAFE_INTEGER + 1); // 9007199254740992
+console.log(Number.MAX_SAFE_INTEGER + 2); // 9007199254740992
+console.log(Number.MAX_SAFE_INTEGER + 3); // 9007199254740994
+console.log(Number.MAX_SAFE_INTEGER + 4); // 9007199254740996
+console.log(Number.MAX_SAFE_INTEGER + 5); // 9007199254740996&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Luckily, any &lt;strong&gt;whole&lt;/strong&gt; numbers between Number.MIN&lt;em&gt;SAFE&lt;/em&gt;INTEGER and Number.MAX&lt;em&gt;SAFE&lt;/em&gt;INTEGER are exact. This is why 10 + 20 === 30.&lt;/p&gt;
+&lt;p&gt;But when we write 0.1 or 0.2, we don’t get exactly 0.1 and 0.2. We get the closest available numbers in JavaScript. They are almost exactly the same, but there might be a tiny difference. These tiny differences add up, which is why 0.1 + 0.2 doesn’t give us exactly the same number as writing 0.3.&lt;/p&gt;
+&lt;p&gt;If this is still confusing, don’t worry. You can &lt;a href=&quot;https://floating-point-gui.de/formats/fp/?ck_subscriber_id=735237872&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;learn more about floating point math&lt;/a&gt;, but you already know more than I did when I started writing this guide! Unless you work on finance apps, you likely won’t need to worry about this.&lt;/p&gt;
+&lt;h4 id=&quot;special-numbers&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#special-numbers&quot; aria-label=&quot;special numbers permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Special Numbers&lt;/h4&gt;
+&lt;p&gt;It is worth noting that floating point math includes a few special numbers. You might occasionally run into &lt;em&gt;NaN&lt;/em&gt;, &lt;em&gt;Infinity&lt;/em&gt;, &lt;em&gt;-Infinity&lt;/em&gt;, and &lt;em&gt;-0&lt;/em&gt;. They exist because sometimes you might execute operations like 1 / 0, and JavaScript needs to represent their result somehow. The floating point math standard specifies how they work, and what happens when you use them.&lt;/p&gt;
+&lt;p&gt;Here’s how special numbers may come up in your code:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;let scale = 0;
+let a = 1 / scale; // Infinity
+let b = 0 / scale; // NaN
+let c = -a; // -Infinity
+let d = 1 / c; // -0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Out of these special numbers, NaN is particularly interesting. NaN, which is the result of 0 / 0 and some other invalid math, stands for “not a number”.&lt;/p&gt;
+&lt;p&gt;You might be confused by why it claims to be a number:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(typeof(NaN)); // &amp;quot;number&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;However, there is no trick here. From JavaScript perspective, NaN is a numeric value. It is not null, undefined, a string, or some other type. But in the floating point math, the name for that term is “&lt;a href=&quot;https://en.wikipedia.org/wiki/NaN?ck_subscriber_id=735237872&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;not a number&lt;/a&gt;”. So it is a numeric value. It happens to be called “not a number” because it represents an invalid result.&lt;/p&gt;
+&lt;p&gt;It’s uncommon to write code using these special numbers. However, they might come up due to a coding mistake. So it’s good to know they exist.&lt;/p&gt;
+&lt;h2 id=&quot;to-be-continued&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#to-be-continued&quot; aria-label=&quot;to be continued permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;To Be Continued&lt;/h2&gt;
+&lt;p&gt;This module is split in two parts. We’ve reached the end of the Part 1. We’ll take a small break now. Let’s recap how many values we’ve counted so far!&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 433px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/js-blog/static/cfa6efdeb4f1099b989fa280be64e412/55fc0/04-null-number-boolean-undefined.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 83.60277136258661%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAIAAABSJhvpAAAACXBIWXMAAAsSAAALEgHS3X78AAADEUlEQVQ4y21TaUwTURDuX00wBoyJEOVQKsjREIEfgAcmIAneMfpDBbzQKAYv+EFAIIIxBgEhxQIttwotlwQQlLNpOSqWWgQBRVOkCAXcbtvddumBs321GOPkZTL75n3zvfnmLWPNakaj0Ww2oxgCo8m09scsFgt4jY5UawizGb4s4FGKYU9jary3TygSDxIEad80meiKCuVSHq+dU/OOXdU5IJ22EtBVGIiwu7c/ODTcxW23syszLPywTD5mRdL8I2MzWYWNiRkV9x5WgU/NqRufnkPVaWbl/M89rOCtLh7uTD9v/8CAoLCoI6cIkgTuscnZJ8Ut97Nr0nMFaTn8zPx6iNOe8lu7pcuYlgaXV9a4efpeiIsP2R9xKCI68W6Sl19gd08frqOyCxsqBH0vmkWtPdKmzvfVTcKqBmF9+/CzsjeNHRIazOaU7mEFxVyMv3r91rUbiediLvmwgts73tLtiOX5vLa0nLrHRc1ZBY0ZeYIHufxcbpugbej7DxUN/jw55c70dd3l4783JCAodLuHd0DwvuWVFSTp/CL2iN18M7XsdmYl9JyeJxiSfbGpjQR7XsIDqRycnB0cnXd6sV63tCKp0VTkk7MlL7u4tT15vLbJGSWttsViEwzhQeECNqeomPt15pt9EwVmq+ykgYKFHgUaJGPtf4ZydqOoVS6vPCb2cmzclYrKajRCGzOYjiD0er1ybl6N4xRFQW2URlWSklNc3ZhML393D+8drp7JySnrYDhNkiSGYQ2NzR+kUtiBQvZHIhSKNmzcHBoafuBgRFTUscjIaIdNWySSEdu1cRwHr1Itvarli8QDEK+urgIS0UqlsoSEO8dPnIZ15uz56KMnHZ22cYpLbWCNRgOiiERig8EwKvsIVSjKANdBHaGsQqFYWFAtLq2oMFwilY3KZDYw6KHV6uaUysHBofHxCaCFFuyyQQtarVY+9kkoHu7qF8knpvSUEc6sq63TEcCAqdU6nRa8wUD9rTZBEmpcg2kIDaFfWvmFYer1XxIZNAmyAc8/c7JnCYLArbOwb/4GjiYn8AqtG1YAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/cfa6efdeb4f1099b989fa280be64e412/8ac56/04-null-number-boolean-undefined.webp 240w,
+/js-blog/static/cfa6efdeb4f1099b989fa280be64e412/aff3a/04-null-number-boolean-undefined.webp 433w&quot;
+          sizes=&quot;(max-width: 433px) 100vw, 433px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/cfa6efdeb4f1099b989fa280be64e412/8ff5a/04-null-number-boolean-undefined.png 240w,
+/js-blog/static/cfa6efdeb4f1099b989fa280be64e412/55fc0/04-null-number-boolean-undefined.png 433w&quot;
+          sizes=&quot;(max-width: 433px) 100vw, 433px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/js-blog/static/cfa6efdeb4f1099b989fa280be64e412/55fc0/04-null-number-boolean-undefined.png&quot;
+          alt=&quot;Null, undefined, number &amp;amp; boolean types&quot;
+          title=&quot;Null, undefined, number &amp;amp; boolean types&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Undefined&lt;/strong&gt;: Only one value, undefined.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Null&lt;/strong&gt;: Only one value, null.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Booleans&lt;/strong&gt;: Two values: true and false.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Numbers&lt;/strong&gt;: One value for each floating point math number.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We’ve also learned a few interesting facts about JavaScript numbers:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Not all numbers can be perfectly represented in JavaScript&lt;/strong&gt;. Their decimal part offers more precision closer to 0, and less precision further away from it. We can say that their decimal point is “floating”.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Numbers from invalid math operations like 1 / 0 or 0 / 0 are special&lt;/strong&gt;. NaN is one of such numbers. They may appear due to coding mistakes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;typeof(NaN) is a number because NaN is a numeric value&lt;/strong&gt;. It’s called “Not a Number” because it represents the idea of an “invalid” number.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In the second part, we will continue our sightseeing tour. We will look at BigInts, Strings, Objects, and Functions — and try to count them all.&lt;/p&gt;
+&lt;h2 id=&quot;exercises&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#exercises&quot; aria-label=&quot;exercises permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Exercises&lt;/h2&gt;
+&lt;p&gt;This module also has exercises for you to practice!&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://eggheadio.typeform.com/to/C3Ajk4?email=guillaume.p.lambert@gmail.com&amp;#x26;ck_subscriber_id=735237872&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Click here to solidify this mental model with a few short exercises.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Don’t skip them!&lt;/p&gt;
+&lt;p&gt;Even though you’re probably familiar with different types of values, these exercises will help you cement the mental model we’re building. We need this foundation before we can get to more complex topics.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[03. Values and Variables]]></title><description><![CDATA[We’ll kick off this module with a little code snippet. What do you expect it to do? We haven’t covered this yet so it’s okay if you’re not sure. Try to answer it using your current knowledge of JavaScript. Now I want you to take a few moments and write down your exact thinking process for each line of this code, step by step. Pay attention to any gaps or uncertainties in your existing mental model, and write them down too. If you have any doubts about it, try to articulate them as clearly as you can.]]></description><link>https://lumen.netlify.com/posts/03-values-and-variables</link><guid isPermaLink="false">https://lumen.netlify.com/posts/03-values-and-variables</guid><pubDate>Fri, 21 Feb 2020 23:04:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;em&gt;Written by &lt;strong&gt;Dan Abramov&lt;/strong&gt;, as part of the “Just Javascript” newsletter.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;We’ll kick off this module with a little code snippet.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;let reaction = &amp;#39;yikes&amp;#39;;
+reaction[0] = &amp;#39;l&amp;#39;;
+console.log(reaction);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;What do you expect it to do? We haven’t covered this yet so it’s okay if you’re not sure. &lt;strong&gt;Try to answer it using your current knowledge of JavaScript.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Now I want you to take a few moments and write down your exact thinking process for each line of this code, step by step. Pay attention to any gaps or uncertainties in your existing mental model, and write them down too. If you have any doubts about it, try to articulate them as clearly as you can.&lt;/p&gt;
+&lt;p&gt;Here’s the answer. This code will either print “yikes” or throw an error depending on whether you are in &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode?ck_subscriber_id=735237872&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;strict mode&lt;/a&gt;. &lt;strong&gt;It will never print “likes”.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Yikes.&lt;/p&gt;
+&lt;h2 id=&quot;primitive-values-are-immutable&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#primitive-values-are-immutable&quot; aria-label=&quot;primitive values are immutable permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Primitive Values Are Immutable&lt;/h2&gt;
+&lt;p&gt;Did you get the answer right? This might seem like a trivia question, the kind that people ask in JavaScript interviews but that doesn’t come up much in practice. Even so, it illustrates an important point about primitive values.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;I can’t change primitive values.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I will explain this with a small example. Strings (which are primitive) and arrays (which are not — they’re objects!) have some superficial similarities. An array is a sequence of items, and a string is a sequence of characters:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;let arr = [212, 8, 506];
+let str = &amp;#39;hello&amp;#39;;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You can access the first array item similarly to how you would access a string’s first character. It almost feels like strings are arrays (but they’re not!):&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(arr[0]); // 212
+console.log(str[0]); // &amp;quot;h&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You can change an array’s first item:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;arr[0] = 420;
+console.log(arr); // [420, 8, 506]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So intuitively, it’s easy to assume that you can do the same to a string:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;str[0] = &amp;#39;j&amp;#39;; // ???&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;But you can’t.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Here’s an important bit that we need to add to our mental model. A string is a primitive value. And that means a great deal!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;All primitive values are immutable.&lt;/strong&gt; “Immutable” is a fancy Latin way to say “unchangeable”. Read-only. You can’t mess with primitive values. At all.&lt;/p&gt;
+&lt;p&gt;If you attempt to set a property on a primitive value, be it a number or a string or something else, JavaScript won’t let you do that. Whether it will silently refuse your request or error depends on &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode?ck_subscriber_id=735237872&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;which mode&lt;/a&gt; your code is running in.&lt;/p&gt;
+&lt;p&gt;But stay assured that this will never work:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;let fifty = 50;
+fifty.shades = &amp;#39;gray&amp;#39;; // No!&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Like any number, &lt;em&gt;50&lt;/em&gt; is a primitive value, and you can’t set properties on it.&lt;/p&gt;
+&lt;p&gt;In my JavaScript universe, all primitive values exist in the outer circle further from my code — like distant stars. This reminds me that even though I can refer to them from my code, I can’t change them. They stay what they are.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;I find it strangely comforting.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 700px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/js-blog/static/77256d4db4451aad1c05a80562a942bd/8c557/03-immutable-primitive-values.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 57.42857142857143%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsSAAALEgHS3X78AAABkUlEQVQoz21SiU4CQQzl/7/FxPgBxsQYL4JXPBBEucRVFsJeMGef7cAuC9pkrnbm9b1OGwSAiCCr4WlhPKKVw7iwUE6867iYMQbdtx6arVs8PD7h8rqJ/mAIrfUag0dje9nCOgdrHQyPaGnwnGgU1gtkuJOkKTrdHkbjT0TfPxh/TvD+0cc0jqvEFWAcz3Bx1cTZ+SVaN3cwSmGmPTqpDnDkPUrz/Ga1UhXzuorGhirf9+i994kZ0GA4QklLpEsZwPEsy1mBRZpm6LD02Xxege1LLlNRuc/zgpTS65oubQhOWcXTcxsv7dewl7dlGb6i7zVDmeTAkulnGuPg8EhYUOv2HhP2Zw6Y5Fo0M0mC4lLkeR5WsWK5RMT3FkmyBRyOxiQFZkaGsxXi08aQY5nTlUWsbACs16wu1fFnlrYvWSpvS59hRoPccPt4eR0eCzv52XanyzXN/iRo1DLR7p6w0A5z5XbYFEURuuH45BRJku7EKsn1T9kCg6z/2xYu9KoNq9+00g5g/VD//n1fHfQ/X2m/8pVWHW25PsQAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/77256d4db4451aad1c05a80562a942bd/8ac56/03-immutable-primitive-values.webp 240w,
+/js-blog/static/77256d4db4451aad1c05a80562a942bd/d3be9/03-immutable-primitive-values.webp 480w,
+/js-blog/static/77256d4db4451aad1c05a80562a942bd/426ac/03-immutable-primitive-values.webp 700w&quot;
+          sizes=&quot;(max-width: 700px) 100vw, 700px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/77256d4db4451aad1c05a80562a942bd/8ff5a/03-immutable-primitive-values.png 240w,
+/js-blog/static/77256d4db4451aad1c05a80562a942bd/e85cb/03-immutable-primitive-values.png 480w,
+/js-blog/static/77256d4db4451aad1c05a80562a942bd/8c557/03-immutable-primitive-values.png 700w&quot;
+          sizes=&quot;(max-width: 700px) 100vw, 700px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/js-blog/static/77256d4db4451aad1c05a80562a942bd/8c557/03-immutable-primitive-values.png&quot;
+          alt=&quot;Mutable vs Immutable variables&quot;
+          title=&quot;Mutable vs Immutable variables&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&quot;a-contradiction&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#a-contradiction&quot; aria-label=&quot;a contradiction permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;A Contradiction?&lt;/h2&gt;
+&lt;p&gt;I have just demonstrated that primitive values are read-only — or, in the parlance of our times, immutable. Here’s a snippet to test your mental model.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;let pet = &amp;#39;Narwhal&amp;#39;;
+pet = &amp;#39;The Kraken&amp;#39;;
+console.log(pet); // ?&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Like before, write down your thinking process in a few sentences. Don’t rush ahead. Pay close attention to how you’re thinking about each line, step by step. Does immutability of strings play a role here, and what role does it play?&lt;/p&gt;
+&lt;p&gt;If you thought I was trying to mess with your head, you were completely right! The answer is “The Kraken” — immutability of strings doesn’t play a role.&lt;/p&gt;
+&lt;p&gt;Don’t despair if you got it wrong and haven’t seen it coming! These two last examples may definitely seem like they’re contradicting each other.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;This is an important realization.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;When you’re new to a language, it might be tempting to ignore contradictions. After all, if you chase every contradiction, you’ll get into a rabbit hole too deep to learn anything. But now that you are committed to building a mental model, you need to question contradictions. They reveal gaps in mental models.&lt;/p&gt;
+&lt;h2 id=&quot;variables-are-wires&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#variables-are-wires&quot; aria-label=&quot;variables are wires permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Variables Are Wires&lt;/h2&gt;
+&lt;p&gt;Let’s look at this example again.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;let pet = &amp;#39;Narwhal&amp;#39;;
+pet = &amp;#39;The Kraken&amp;#39;;
+console.log(pet); // &amp;quot;The Kraken&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We know that string values can’t change because they are primitive. But the pet variable does change to “The Kraken”. What’s up with that?&lt;/p&gt;
+&lt;p&gt;This might seem like it’s a contradiction, but it’s not. We only said it’s the primitive values that can’t change. We didn’t say anything about variables!&lt;/p&gt;
+&lt;p&gt;As we refine our mental model, we might need to untangle related concepts.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Variables are not values.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Variables point to values.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In my universe, a variable is a wire. It has two ends and a direction: it starts from a name in my code and it ends pointing at some value in my universe.&lt;/p&gt;
+&lt;p&gt;For example, I can point the pet variable at the “Narwhal” value:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;let pet = &amp;#39;Narwhal&amp;#39;;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;There are two things I can do to a variable after that.&lt;/p&gt;
+&lt;h3 id=&quot;assigning-a-value-to-a-variable&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#assigning-a-value-to-a-variable&quot; aria-label=&quot;assigning a value to a variable permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Assigning a Value to a Variable&lt;/h3&gt;
+&lt;p&gt;One thing I can do is to &lt;em&gt;assign&lt;/em&gt; some other value to my variable:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;pet = &amp;#39;The Kraken&amp;#39;;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;All I am doing here is instructing JavaScript to point the “wire” on the left side (my pet variable) at the value on the right side (‘The Kraken’). It will keep pointing at that value unless I re-assign it again later.&lt;/p&gt;
+&lt;p&gt;Note that I can’t just put anything on the left side:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;#39;war&amp;#39; = &amp;#39;peace&amp;#39;; // Nope. (Try it in the console.)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;The left side of an assignment must be a “wire”.&lt;/strong&gt; For now, we only know that variables are “wires”. But there is another kind of “wire” we’ll talk about in a later module. Perhaps, you can guess what it is? (Hint: it involves square brackets or a dot, and we’ve already seen it a couple of times.)&lt;/p&gt;
+&lt;p&gt;There’s also another rule.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The right side of an assignment must be an expression.&lt;/strong&gt; It can be something simple, like 2 or ‘hello’, or a more complicated expression — for example:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;pet = count + &amp;#39; Dalmatians&amp;#39;;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Here, &lt;em&gt;count + ’ Dalmatians’&lt;/em&gt; is an expression — a question to JavaScript. JavaScript will answer it with a value (for example, “101 Dalmatians”). From now on, the pet “wire” will start pointing to that value.&lt;/p&gt;
+&lt;p&gt;If the right side must be an expression, does this mean that numbers like 2 or strings like ‘The Kraken’ written in code are also expressions? Yes! Such expressions are called literals — because we literally write down their values.&lt;/p&gt;
+&lt;h3 id=&quot;reading-a-value-of-a-variable&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#reading-a-value-of-a-variable&quot; aria-label=&quot;reading a value of a variable permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Reading a Value of a Variable&lt;/h3&gt;
+&lt;p&gt;I can also read the value of variable — for example, to log it:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(pet);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That’s hardly surprising.&lt;/p&gt;
+&lt;p&gt;But note that it is not the pet variable that we pass to console.log. We might say that colloquially, but we can’t really pass variables to functions. We pass the current value of the pet variable. How does this work?&lt;/p&gt;
+&lt;p&gt;It turns out that a variable name like pet can serve as an expression too! When we write pet, we’re asking JavaScript a question: “What is the current value of pet?” To answer our question, JavaScript follows the pet’s “wire”, and gives us back the value at the end of this “wire”.&lt;/p&gt;
+&lt;p&gt;So the same expression can give us different values at different times!&lt;/p&gt;
+&lt;h3 id=&quot;nouns-and-verbs&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#nouns-and-verbs&quot; aria-label=&quot;nouns and verbs permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Nouns and Verbs&lt;/h3&gt;
+&lt;p&gt;Who cares if you say “pass a variable” or “pass a value”? Isn’t the difference hopelessly pedantic? I certainly don’t encourage interrupting your colleagues to correct them — or even yourself. That would be a waste of everyone’s time.&lt;/p&gt;
+&lt;p&gt;But in your mind you need to have clarity on what you can do with each concept. You can’t skate a bike. You can’t fly an avocado. You can’t sing a mosquito. And you can’t pass a variable — at least, not in JavaScript.&lt;/p&gt;
+&lt;p&gt;Here’s a small example of why these details matter.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;function double(x) {
+  x = x * 2;
+}
+
+let money = 10;
+double(money);
+console.log(money); // ?&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If we thought double(money) was passing a variable, we could expect that x = x * 2 would double that variable. But that’s not how it works. We know that double(money) means “figure out the value of money, and then pass that value to double”. So the answer is 10. What a scam!&lt;/p&gt;
+&lt;p&gt;What are the different JavaScript nouns and verbs in your head? How do they relate to each other? Write down a short list of the ones you use most often.&lt;/p&gt;
+&lt;h3 id=&quot;putting-it-together&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#putting-it-together&quot; aria-label=&quot;putting it together permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Putting It Together&lt;/h3&gt;
+&lt;p&gt;Now let’s revisit the first example from &lt;em&gt;Mental Models&lt;/em&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;let x = 10;
+let y = x;
+x = 0;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;I suggest that you take a piece of paper or a drawing app and sketch out a diagram of what happens to the “wires” of the x and y variables step by step.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The first line doesn’t do much:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Declare a variable called x.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Make a wire for the x variable.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Assign to x the value of 10.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Point x’s wire to the value 10.&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;The second line is short, but it does quite a few things:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Declare a variable called y.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Make a wire for the y variable.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Assign to y the value of x.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Evaluate the expression: x.&lt;/li&gt;
+&lt;li&gt;The “question” we want to answer is x.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Follow the x’s wire — the answer is the value 10.&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;The x expression resulted in the value 10.&lt;/li&gt;
+&lt;li&gt;Therefore, assign to y the value of 10.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Point y’s wire to the value 10.&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Finally, we get to the third line:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Assign to x the value of 0.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Point x’s wire to the value 0.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;At the end, the x variable points to the value 0, and the y variable points to the value 10. Note that y = x did not mean point y to x”. We can’t point variables to each other! &lt;strong&gt;Variables always point at &lt;em&gt;values&lt;/em&gt;&lt;/strong&gt;. When we see an assignment, we “ask” the right side’s value, and point the left side’s “wire” at it.&lt;/p&gt;
+&lt;p&gt;I mentioned in Mental Models that it is fairly common to think of variables as boxes. The universe we’re building is not going to have any boxes at all. &lt;strong&gt;It only has wires!&lt;/strong&gt; This might seem a bit annoying. Why can’t we just “put 0 and 10 values into the variables rather than pointing variables to them?&lt;/p&gt;
+&lt;p&gt;Using wires is going to be very important for explaining numerous other concepts, like strict equality, object identity, and mutation. We’re going to stick with wires, so you might as well start getting used to them now!&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;My universe is full of wires.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&quot;recap&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#recap&quot; aria-label=&quot;recap permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Recap&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Primitive values are immutable.&lt;/strong&gt; There’s nothing we can do in our code to affect them or change them in any way. They stay what they are. For example, we can’t set a property on a string value because it is a primitive value. Arrays are not primitive, so we can set their properties.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Variables are not values.&lt;/strong&gt; Each variable points to a particular value. We can change which value it points to by using the = assignment operator.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Variables are like wires.&lt;/strong&gt; A “wire” is not a JavaScript concept — but it helps us imagine how variables point to values. There’s also a different kind of “wire” that’s not a variable, but we haven’t discussed it yet.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Look out for contradictions.&lt;/strong&gt; If two things that you learned seem to contradict each other, don’t get discouraged. Usually it’s a sign that there’s a deeper truth lurking underneath.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Nouns and verbs matter.&lt;/strong&gt; We’re building a mental model so that we can be confident in what can or cannot happen in our universe. It’s fine to be sloppy in casual speech, but our thinking needs to be precise.&lt;/p&gt;
+&lt;h2 id=&quot;exercises&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#exercises&quot; aria-label=&quot;exercises permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Exercises&lt;/h2&gt;
+&lt;p&gt;This module also has exercises for you to practice!&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://eggheadio.typeform.com/to/RWJg3m?email=guillaume.p.lambert@gmail.com&amp;#x26;ck_subscriber_id=735237872&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Click here to solidify this mental model with a few short exercises.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Don’t skip them!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Even though you’re likely familiar with the concept of variables, these exercises will help you cement the mental model we’re building. We need this foundation before we can get to more complex topics.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[02. The Javascript Universe]]></title><description><![CDATA[In the beginning was the Value. What is a value? It’s hard to say. This is like asking what a number is in math, or what a point is in geometry. A value is a thing in the JavaScript universe. Numbers are values — but so are a few other things, like objects and functions. However, many things, such as an if statement or a variable declaration, are not values.]]></description><link>https://lumen.netlify.com/posts/02-javascript-universe</link><guid isPermaLink="false">https://lumen.netlify.com/posts/02-javascript-universe</guid><pubDate>Thu, 20 Feb 2020 22:54:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;em&gt;Written by &lt;strong&gt;Dan Abramov&lt;/strong&gt;, as part of the “Just Javascript” newsletter.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;In the beginning was the Value.&lt;/p&gt;
+&lt;p&gt;What is a value? It’s hard to say.&lt;/p&gt;
+&lt;p&gt;This is like asking what a number is in math, or what a point is in geometry. &lt;strong&gt;A value is a thing in the JavaScript universe&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Numbers are values — but so are a few other things, like objects and functions. However, many things, such as an if statement or a variable declaration, are &lt;em&gt;not&lt;/em&gt; values.&lt;/p&gt;
+&lt;h2 id=&quot;code-and-values&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#code-and-values&quot; aria-label=&quot;code and values permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Code and Values&lt;/h2&gt;
+&lt;p&gt;To distinguish values from everything else in my JavaScript program, I like to imagine this drawing of the Little Prince by Antoine de Saint-Exupéry:&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 640px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/js-blog/static/4f0171cb7197b35356f435bcc36f427a/c08c5/02-saint-exupery.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 56.25%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIEBf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIQAxAAAAHeV5IrIg//xAAXEAADAQAAAAAAAAAAAAAAAAAAEDEC/9oACAEBAAEFAjUVX//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEABj8CX//EABoQAAEFAQAAAAAAAAAAAAAAABEAARAhMVH/2gAIAQEAAT8hzYS3U6IXdx//2gAMAwEAAgADAAAAEMT/AP/EABYRAQEBAAAAAAAAAAAAAAAAAAABEf/aAAgBAwEBPxCMf//EABcRAAMBAAAAAAAAAAAAAAAAAAABESH/2gAIAQIBAT8QayFP/8QAHBABAAMBAAMBAAAAAAAAAAAAAQAhQRExUXGB/9oACAEBAAE/ECipt3I2gnVN5sG8B/Zg9s6VaqXFRpT5P//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/4f0171cb7197b35356f435bcc36f427a/8ac56/02-saint-exupery.webp 240w,
+/js-blog/static/4f0171cb7197b35356f435bcc36f427a/d3be9/02-saint-exupery.webp 480w,
+/js-blog/static/4f0171cb7197b35356f435bcc36f427a/0ba47/02-saint-exupery.webp 640w&quot;
+          sizes=&quot;(max-width: 640px) 100vw, 640px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/4f0171cb7197b35356f435bcc36f427a/09b79/02-saint-exupery.jpg 240w,
+/js-blog/static/4f0171cb7197b35356f435bcc36f427a/7cc5e/02-saint-exupery.jpg 480w,
+/js-blog/static/4f0171cb7197b35356f435bcc36f427a/c08c5/02-saint-exupery.jpg 640w&quot;
+          sizes=&quot;(max-width: 640px) 100vw, 640px&quot;
+          type=&quot;image/jpeg&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/js-blog/static/4f0171cb7197b35356f435bcc36f427a/c08c5/02-saint-exupery.jpg&quot;
+          alt=&quot;Little Prince by Antoine de Saint-Exupéry&quot;
+          title=&quot;Little Prince by Antoine de Saint-Exupéry&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;I’m standing on a small asteroid — it is the code of my program.&lt;/p&gt;
+&lt;p&gt;On its surface, I see the if statements and variable declarations, commas, curly braces, and all the other things one might find in the JavaScript code.&lt;/p&gt;
+&lt;p&gt;My code contains instructions like “make a function call” or “do this thing many times”, or even “throw an error”. I walk through these instructions step by step — running errands from my small asteroid.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;But every once in a while, I look up.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;On a clear night, I see the different values in the JavaScript sky: booleans, numbers, strings, symbols, functions and objects, null and undefined — oh my! I might refer to them in my code, but they don’t exist inside my code.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;In my JavaScript universe, values float in space.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/js-blog/static/7d448140e286668ec3ce494ab5668332/99f37/02-values.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 100%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAACXBIWXMAAAsSAAALEgHS3X78AAACK0lEQVQ4y4VU226bQBD17/WpT/2FPvWlH1YplfLQS5SnKK1UJQ6KbQzEYMBOiMPNmOuyS3N2xyax66gjQAMzZ+bMZRn8fUOEEBy36OTddUd9Bgfv8JPeO52EYv0bYg/MOWeMFUWZpOnc9ayZvVjeT3TD9f26rlslx8FAcmWb6KZhWb6/RIi8KMIoHk901/OVj2CsPQSDFZ4PwWNVVf3rQTlIu84yIZPwFzDVc/8QXA01GOg1WK2ewshfLKMoFkqqujLMu5ntSHsPRkjQG+vT9TqDE8L/uRqi5jRNH1dPUGAqqwoIdCRJ0izb4JJgJEG2zSYvyxJRkPfOdsBCUt1xTtM1ckIBOM+LG21kmBbMA6RqGrYd7K4YSBQncZJEcQzakp0yIXgDb8aoEAnuB4D8hoXEc+h13Xw9/fbl5FQNoeVbcEtRqDV74GyTD7XbmT0nyujOaDIltuTQj5qaOlAzkMHqRgpXQ0Jc+kh+aKe3WIZRBGd0DsQ50aalQ2E/fp7ned7vIIghFhYLOqb2/ewcewKAM/eubzSqQs2564qyhC0IVtS8fjFMa4ZL7QVHIIDRF3SRyNOcZZiLy9/v3n+4uPxFtakT0o3G+vVQUx1+WWzq1hZMVLEYHz991m5H0OHdryRJv7CKhDg8GHQYVW9bzMt2HBwpnI3Xw1dAceRU0arJTnIRhqHnL6am5bgusVU1N+2rQMd/Bj1J6ExKq57sPz+DfRbbUpHzrd/QM90YgrjSS7lLAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/7d448140e286668ec3ce494ab5668332/8ac56/02-values.webp 240w,
+/js-blog/static/7d448140e286668ec3ce494ab5668332/d3be9/02-values.webp 480w,
+/js-blog/static/7d448140e286668ec3ce494ab5668332/e46b2/02-values.webp 960w,
+/js-blog/static/7d448140e286668ec3ce494ab5668332/abb12/02-values.webp 1100w&quot;
+          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/7d448140e286668ec3ce494ab5668332/8ff5a/02-values.png 240w,
+/js-blog/static/7d448140e286668ec3ce494ab5668332/e85cb/02-values.png 480w,
+/js-blog/static/7d448140e286668ec3ce494ab5668332/d9199/02-values.png 960w,
+/js-blog/static/7d448140e286668ec3ce494ab5668332/99f37/02-values.png 1100w&quot;
+          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/js-blog/static/7d448140e286668ec3ce494ab5668332/d9199/02-values.png&quot;
+          alt=&quot;In my JavaScript universe, values float in space.&quot;
+          title=&quot;In my JavaScript universe, values float in space.&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;“Hold on,“ you might say, “I always thought of values as being inside of my code!” Here, I’m asking you to take a leap of faith. It will take a few more modules for this mental model to pay off. &lt;a href=&quot;https://signalvnoise.com/posts/3124-give-it-five-minutes?ck_subscriber_id=735237872&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Give it five minutes&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Back to values. Broadly, there are two kinds of them.&lt;/p&gt;
+&lt;h2 id=&quot;primitive-values&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#primitive-values&quot; aria-label=&quot;primitive values permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Primitive Values&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Primitive Values&lt;/strong&gt; are numbers and strings, among other things. Open your browser’s console and print these primitive values using console.log():&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(2);
+console.log(&amp;quot;hello&amp;quot;);
+console.log(undefined);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;All primitive values have something in common. &lt;strong&gt;There’s nothing I can do in my code that would affect them&lt;/strong&gt;. This sounds a bit vague, so we’ll explore what this means concretely in the next module. For now, I’ll say that primitive values are like stars — cold and distant, but always there when I need them.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;That’s the first kind of values.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&quot;objects-and-functions&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#objects-and-functions&quot; aria-label=&quot;objects and functions permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Objects and Functions&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Objects and Functions&lt;/strong&gt; are also values, but they are not primitive. This makes them very special. Go ahead and log a few of them to the browser console:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log({});
+console.log([]);
+console.log(x =&amp;gt; x * 2);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Notice how the browser console displays them differently from the primitive values. Some browsers might display an arrow before them, or do something special when you click them. If you have a few different browsers installed (e.g. Chrome and Firefox), compare how they visualize objects and functions.&lt;/p&gt;
+&lt;p&gt;Objects and functions are special because &lt;strong&gt;I can manipulate them from my code&lt;/strong&gt;. For example, I can connect them to other values. This is rather vague — so we’ll refine this idea in a later module. For now, I can say that if primitive values are like distant stars, then objects and functions are more like rocks floating nearby my code. They’re close enough that I can manipulate them.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;And that’s the second kind of values.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;You might have questions. Good. If you ask a question, the JavaScript universe might answer it! Provided, of course, that you know how to ask.&lt;/p&gt;
+&lt;h2 id=&quot;expressions&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#expressions&quot; aria-label=&quot;expressions permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Expressions&lt;/h2&gt;
+&lt;p&gt;There are many questions JavaScript can’t answer. If you want to know whether it’s better to confess your true feelings to your best friend or to keep waiting until you both turn into skeletons, JavaScript won’t be of much help.&lt;/p&gt;
+&lt;p&gt;But there are some questions that JavaScript would be delighted to answer. These questions have a special name — they are called expressions.&lt;/p&gt;
+&lt;p&gt;If we “ask” the expression 2 + 2, JavaScript will “answer” with the value 4.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(2 + 2); // 4&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Expressions are questions that JavaScript can answer. JavaScript answers expressions in the only way it knows how — with values.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If the word “expression” confuses you, think of it as a piece of code that expresses a value. You might hear people say that 2 + 2 “results in” or “evaluates to” 4. These are all different ways to say the same thing.&lt;/p&gt;
+&lt;p&gt;We ask JavaScript 2 + 2, and it answers with 4. &lt;strong&gt;Expressions always result in a single value&lt;/strong&gt;. Now we know enough about expressions to be dangerous!&lt;/p&gt;
+&lt;p&gt;I previously said that there are many types of JavaScript values: numbers, strings, objects, and so on. How do we know any particular value’s type?&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;This sounds like a question. Do we dare to ask it?&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&quot;checking-a-type&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#checking-a-type&quot; aria-label=&quot;checking a type permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Checking a Type&lt;/h2&gt;
+&lt;p&gt;At first, all values in the JavaScript cosmos might look the same — bright dots in the sky. But if you look closely, you’ll realize there are fewer than ten different types of values. Values of the same type behave in similar ways.&lt;/p&gt;
+&lt;p&gt;If we want to check a value’s type, we can ask it with the typeof operator. JavaScript will answer our question with one of the predetermined string values, such as “number”, “string”, or “object”.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/js-blog/static/1d99b2f8188ab4c9766fd9d84b02d1aa/1c1a4/02-typeof.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 163.67112810707457%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAhCAIAAABWXBxEAAAACXBIWXMAAAsSAAALEgHS3X78AAAEOUlEQVQ4y5WV+1MTVxTH86/0BztOi9SQd7KbhN08WAIJAZMCRakoMlNpp3actjNO23GwylCgTUZQq2MLIg+tL9BgFEEeAiJSRhsSUaKtYAlgYkwIkkDas7nONktCa+/cuXN2937O/Z5zz73L+et/ttXV1Wg0imxO4udorCEjHA6vrKwwTCQSQY/rwmva0qtXz70+gIFk1kwOw+dAMBiJuYdF7Ne7i0t3G81F0zPP0Nd1YXAPo+3qtfsOJzI2i+RCXCXAyR8OH6XdxSYkgZHXKffjweER/8uXYHu9vryCYrFCsyGFt31XOfKOgkeTOfEkpKeopOxShw1spLyk7ON30yQEZbAcPsrkD1oSeHExVFljqay2dNqvf11xqLC4tPtm/28OJ0hImksOO1v06Pf72y93UgZz+Z7Pg8HF5eXlF35/KLQUCAQg86GlpSn3E7Rh7IRFo8vh8B9PpyGwxtOt1rpj8OiZmwe7qtZ69vylXy60NzS1nLvYgcSyZPcNDD6ccoPhcLoqDlX/eLLRNfkQHiecrvYrnQG6Bf+c9czOepLIBpFQCWD09t+qO3YC0t7V3cts4X/EzEhoPXu+qeXM6Nj4qea2WLW8Li+Ia93aRm89nrmDVd/XWuub287tP1g1v7CQWFtJYJTDGzf7BwaHO2x2r+9FT+/A8Mjoeso58SSacaCq9jtL/adffmM9cqKyBoaf6ZqJRBJ5TnxVP52e+WTvPr5cKyKypRojD89IlZDpOtO31VZUsKuJtY1e3bn7K0bqNnKlUiILU+ulpE5lKMjYUpxpLhES2TvL9y48960JnoMeQqFQVl7hO2kyKaHD1AboMpVeYyyiTNsp04fZ+Tsx7ZatZXu8PhbPQUlqaGp9O1Ukkmt4MlKIq2FZJZUrzzCCZoCh6wtKJWpj/fGGePEcVBsGUxGcHr6MSJMoedJ08CJTgfhscEFkmeXaHAWVq9SZcz/YAVXGLE7DQ7fvpApxHiJlBF9GAi/ASOBxjR7ihyggHOAVmXkjo2PM4jR8d2ycK6YxAa4WyrVCuQYkcMUKkUKD9JP6AiWVR+hMabimo/MaUxE0fKOndxMfgwUBg9liJcXHSFAhwFViZYY4nVLE4pdrDe+JlfauHhY8+WhKgKlgZcgWkNAhZ+ALXMDisa4FL2h8MPmIJRui31a6O4WHgQtg0Pi6YyqQIwT9RGYKH9u64yNWkSAffbeGNosUCONJifhO87gaDKXW4Jhwrd0qlPcjx3/asEkIykW05n9gOiIp8dZG7oX2K2tuX9ZN0nC6TanNSRUquJJ0AGCEXUC5rLbUxZ/kJLD7ye+nWs5UVNbkb9tF5byflVuYmZP/2Rdf3Y7tbeKRZsFz8/P3HROwGXA/9g0M2exdcKpPNjZPOB/8G8x8g1v24mXbzMwzp2tybPyeE3bG/RiOzRvdYfBPgCv6Df/VfwMijdoZY6T90wAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/1d99b2f8188ab4c9766fd9d84b02d1aa/8ac56/02-typeof.webp 240w,
+/js-blog/static/1d99b2f8188ab4c9766fd9d84b02d1aa/d3be9/02-typeof.webp 480w,
+/js-blog/static/1d99b2f8188ab4c9766fd9d84b02d1aa/e46b2/02-typeof.webp 960w,
+/js-blog/static/1d99b2f8188ab4c9766fd9d84b02d1aa/8c521/02-typeof.webp 1046w&quot;
+          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/js-blog/static/1d99b2f8188ab4c9766fd9d84b02d1aa/8ff5a/02-typeof.png 240w,
+/js-blog/static/1d99b2f8188ab4c9766fd9d84b02d1aa/e85cb/02-typeof.png 480w,
+/js-blog/static/1d99b2f8188ab4c9766fd9d84b02d1aa/d9199/02-typeof.png 960w,
+/js-blog/static/1d99b2f8188ab4c9766fd9d84b02d1aa/1c1a4/02-typeof.png 1046w&quot;
+          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/js-blog/static/1d99b2f8188ab4c9766fd9d84b02d1aa/d9199/02-typeof.png&quot;
+          alt=&quot;Typeof my code&quot;
+          title=&quot;Typeof my code&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Below are a few examples you can try in the browser console:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(typeof(2)); // &amp;quot;number&amp;quot;
+console.log(typeof(&amp;quot;hello&amp;quot;)); // &amp;quot;string&amp;quot;
+console.log(typeof(undefined)); // &amp;quot;undefined&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Here, &lt;em&gt;typeof(2)&lt;/em&gt; is an expression — and it results in the “number” value.&lt;/p&gt;
+&lt;p&gt;Strictly saying, using parens isn’t required with typeof. For example, &lt;em&gt;typeof 2&lt;/em&gt; would work just as fine as &lt;em&gt;typeof(2)&lt;/em&gt;. However, sometimes parens are required to avoid an ambiguity. One of the cases below would break if we omitted the parens after typeof. Try to guess which one it is:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(typeof({})); // &amp;quot;object&amp;quot;
+console.log(typeof([])); // &amp;quot;object&amp;quot;
+console.log(typeof(x =&amp;gt; x * 2)); // &amp;quot;function&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You can verify your guess in the browser console.&lt;/p&gt;
+&lt;p&gt;Now take another look at the last three examples — this time with close attention to their results. Did you find any of these results surprising? Why?&lt;/p&gt;
+&lt;h2 id=&quot;types-of-values&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#types-of-values&quot; aria-label=&quot;types of values permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Types of Values&lt;/h2&gt;
+&lt;p&gt;As an aspiring astronomer, you might want to know about every type of value that can be observed in the JavaScript sky. After almost twenty five years of studying JavaScript, the scientists have only discovered nine such types:&lt;/p&gt;
+&lt;h3 id=&quot;primitive-values-1&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#primitive-values-1&quot; aria-label=&quot;primitive values 1 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Primitive Values&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Undefined&lt;/strong&gt; (undefined), used for unintentionally missing values.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Null&lt;/strong&gt; (null), used for intentionally missing values.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Booleans&lt;/strong&gt; (true and false), used for logical operations.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Numbers&lt;/strong&gt; (-100, 3.14, and others), used for math calculations.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Strings&lt;/strong&gt; (“hello”, “abracadabra”, and others), used for text.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Symbols&lt;/strong&gt; (uncommon), used to hide implementation details.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;BigInts&lt;/strong&gt; (uncommon and new), used for math on big numbers.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;objects-and-functions-1&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#objects-and-functions-1&quot; aria-label=&quot;objects and functions 1 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Objects and Functions&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Objects&lt;/strong&gt; ({} and others), used to group related data and code.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Functions&lt;/strong&gt; (x =&gt; x * 2 and others), used to refer to code.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;no-other-types&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#no-other-types&quot; aria-label=&quot;no other types permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;No Other Types&lt;/h3&gt;
+&lt;p&gt;You might ask: “But what about other types I have used, like arrays?”&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;In JavaScript, there are no other fundamental value types other than the ones we have just enumerated.&lt;/strong&gt; The rest are all objects! For example, even arrays, dates, and regular expressions fundamentally are objects in JavaScript:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;console.log(typeof([])); // &amp;quot;object&amp;quot;
+console.log(typeof(new Date())); // &amp;quot;object&amp;quot;
+console.log(typeof(/(hello|goodbye)/)); // &amp;quot;object&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;“I see,” you might reply, “this is because everything is an object!” Alas, this is a popular urban legend, but it’s not true. Although code like “hi”.toUpperCase() makes “hi” seem like an object, this is nothing but an illusion. JavaScript creates a wrapper object when you do this, and then immediately discards it.&lt;/p&gt;
+&lt;p&gt;It’s fine if this mechanism doesn’t quite click yet. &lt;strong&gt;For now, you only need to remember that primitive values, such as numbers and strings, are not objects.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;recap&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#recap&quot; aria-label=&quot;recap permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Recap&lt;/h2&gt;
+&lt;p&gt;Let’s recap what we know so far:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;There are values, and then there’s everything else.&lt;/strong&gt; We can think of values as different things “floating” in our JavaScript universe. They don’t exist &lt;em&gt;inside&lt;/em&gt; our code, but we can refer to them from our code.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;There are two categories of values: there are &lt;em&gt;Primitive Values&lt;/em&gt;, and then there are &lt;em&gt;Objects and Functions&lt;/em&gt;&lt;/strong&gt;. In total, there are nine separate types. Each type serves a specific purpose, but some are rarely used.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Some values are lonely&lt;/strong&gt;. For example, &lt;em&gt;null&lt;/em&gt; is the only value of the Null type, and &lt;em&gt;undefined&lt;/em&gt; is the only value of the Undefined type. As we will learn later, these two lonely values are quite the troublemakers!&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;We can ask questions with expressions&lt;/strong&gt;. JavaScript will answer to us with values. For example, the 2 + 2 expression is answered with 4.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;We can inspect the type of something by wrapping it in a &lt;em&gt;typeof&lt;/em&gt; expression&lt;/strong&gt;. For example, typeof(4) is the string value “number”.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;exercises&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#exercises&quot; aria-label=&quot;exercises permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Exercises&lt;/h2&gt;
+&lt;p&gt;Now it’s time to put what we learned to action.&lt;/p&gt;
+&lt;p&gt;Even if you already have a decent amount of experience with JavaScript don’t skip the exercise questions! I personally learned some of these things only a few years ago.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://eggheadio.typeform.com/to/PLyTKB?email=guillaume.p.lambert@gmail.com&amp;#x26;ck_subscriber_id=735237872&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Click here to answer these questions&lt;/a&gt; and provide feedback about this module. When you complete the exercises I will send the next module right away.&lt;/p&gt;
+&lt;p&gt;Next up we will explore the Primitive Values in more detail. We look at what these different primitive types like numbers and Null have in common, and learn a thing or two about what equality means in JavaScript.&lt;/p&gt;
+&lt;p&gt;We will also continue to refine our mental model. This module presents a crude sketch — an approximation. We will focus on different parts of the picture and fill them in with more details, like a &lt;a href=&quot;https://www.liquidweb.com/kb/what-is-a-progressive-jpeg/?ck_subscriber_id=735237872&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;progressive JPEG&lt;/a&gt; image.&lt;/p&gt;
+&lt;p&gt;These might seem like small steps, but we’re laying the foundation for everything else to come. We’re building the JavaScript universe, together.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[01. Mental Models]]></title><description><![CDATA[The goal of this exercise isn’t to introduce you to variables. We assume you’re already familiar with them. Instead, it is to make you notice and reflect on your mental model.]]></description><link>https://lumen.netlify.com/posts/01-mental-models</link><guid isPermaLink="false">https://lumen.netlify.com/posts/01-mental-models</guid><pubDate>Wed, 19 Feb 2020 22:40:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;em&gt;Written by &lt;strong&gt;Dan Abramov&lt;/strong&gt;, as part of the “Just Javascript” newsletter.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Read this code:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;let a = 10;
+let b = a;
+a = 0;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;What are the values of a and b after it runs? Work it out in your head before reading further.&lt;/p&gt;
+&lt;p&gt;If you’ve been writing JavaScript for a while, you might object: “This snippet is much simpler than the code I’m writing every day. What’s the point?”&lt;/p&gt;
+&lt;p&gt;The goal of this exercise isn’t to introduce you to variables. We assume you’re already familiar with them. Instead, it is to make you notice and reflect on your &lt;em&gt;mental model&lt;/em&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;whats-a-mental-model&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#whats-a-mental-model&quot; aria-label=&quot;whats a mental model permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;What’s a Mental Model?&lt;/h2&gt;
+&lt;p&gt;Read the code above again with an intention to really be sure what the result is. (We’ll see why this intention is important a bit later.)&lt;/p&gt;
+&lt;p&gt;While you’re reading it for the second time, pay close attention to what’s happening in your head, step by step. You might notice a monologue like this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;let a = 10;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Declare a variable called a. Set it to 10.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;let b = a;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Declare a variable called b. Set it to a.&lt;/li&gt;
+&lt;li&gt;Wait, what’s a again? Ah, it was 10. So b is 10 too.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;a = 0;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Set the a variable to 0.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;So a is 0 now, and b is 10. That’s our answer.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Maybe your monologue is a bit different. Maybe you say “assign” instead of “set”, or maybe you read it in a slightly different order. Maybe you arrived at a different result. Pay attention to how exactly it was different. Note how even this monologue doesn’t capture what’s really happening in your head. You might say “set b to a”, but what does it even mean to set a variable?&lt;/p&gt;
+&lt;p&gt;You might find that for every familiar fundamental programming concept (like a variable) and operations on it (like setting its value), there is a set of deep-rooted analogies that you associated with it. Some of them may come from the real world. Others may be repurposed from other fields you learned first, like numbers from math. These analogies might overlap and even contradict each other, but they still help you make sense of what’s happening in the code.&lt;/p&gt;
+&lt;p&gt;For example, many people first learned about variables as “boxes” into which you can put stuff. Even if you don’t vividly imagine boxes anymore when you see a variable, they might still behave “boxy” in your imagination. These approximations of how something works in your head are known as “mental models”. It may be hard if you’ve been programming for a long time, but try to notice and introspect your mental models. They’re probably a combination of visual, spatial, and mechanical mental shortcuts.&lt;/p&gt;
+&lt;p&gt;These intuitions (like “boxiness” of variables) influence how we read code our whole lives. But sometimes, our mental models are wrong. Maybe a tutorial we read early on has sacrificed correctness for the ease of explaining. Maybe we incorrectly transferred an intuition about a particular language feature, like this, from another language we learned earlier. Maybe we inferred a mental model from some piece of code and never really verified if it was accurate.&lt;/p&gt;
+&lt;p&gt;Identifying and fixing these problems is what Just JavaScript is all about. We will gradually build (or, possibly, rebuild) your mental model of JavaScript to be accurate and useful. A good mental model will help you find and fix bugs faster, understand other people’s code better, and feel confident in the code you write.&lt;/p&gt;
+&lt;p&gt;(By the way, a being 0 and b being 10 is the correct answer.)&lt;/p&gt;
+&lt;h2 id=&quot;coding-fast-and-slow&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#coding-fast-and-slow&quot; aria-label=&quot;coding fast and slow permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Coding, Fast and Slow&lt;/h2&gt;
+&lt;p&gt;“Thinking, Fast and Slow” by Daniel Kahneman is a widely popular non-fiction book. Its central thesis is that humans use two different “systems” when thinking.&lt;/p&gt;
+&lt;p&gt;Whenever we can, we rely on the “fast” system. We share this system with many animals, and that gives us amazing powers like walking without falling all the time. This “fast” system is good at pattern matching (necessary for survival!) and “gut reactions”. But it’s not good at planning.&lt;/p&gt;
+&lt;p&gt;Uniquely, thanks to the development of frontal lobe, humans also possess a “slow” thinking system. This “slow” system is responsible for complex step-by-step reasoning. It lets us plan future events, engage in arguments, or follow mathematical proofs.&lt;/p&gt;
+&lt;p&gt;Because using the “slow” system is so mentally draining, we tend to default to the “fast” one — even when dealing with intellectual tasks like coding.&lt;/p&gt;
+&lt;p&gt;Imagine that you’re in the middle of a lot of work, and you want to quickly identify what this function does. Take a quick look at it:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;function duplicateSpreadsheet(original) {
+  if (original.hasPendingChanges) {
+    throw new Error(&amp;#39;You need to save the file before you can duplicate it.&amp;#39;);
+  }
+  let copy = {
+    created: Date.now(),
+    author: original.author,
+    cells: original.cells,
+    metadata: original.metadata,
+  };
+  copy.metadata.title = &amp;#39;Copy of &amp;#39; + original.metadata.title;
+  return copy;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You’ve probably noticed that:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;This function duplicates a spreadsheet.&lt;/li&gt;
+&lt;li&gt;It throws an error if the original spreadsheet isn’t saved.&lt;/li&gt;
+&lt;li&gt;It prepends “Copy of” to the new spreadsheet’s title.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;What you might not have noticed (great job if you did though!) is that this function also accidentally changes the title of the original spreadsheet.&lt;/p&gt;
+&lt;p&gt;Missing bugs like this is something that happens to every programmer, every day. But now that you know a bug exists, will you read the code differently? If you’ve been reading code in the “fast” mode, it’s likely you’ll switch to the more laborious “slow” mode to find it.&lt;/p&gt;
+&lt;p&gt;In the “fast” mode, we guess what the code does based on naming, comments, and its overall structure. In the “slow” mode, we retrace what the code does step by step.&lt;/p&gt;
+&lt;p&gt;That’s why having a correct mental model is so important. Simulating a computer in our heads is hard enough — and this effort is wasted with wrong mental models.&lt;/p&gt;
+&lt;p&gt;Don’t worry if you can’t find the bug at all. This means you’ll get the most out of this course! Over the next modules, we’ll rebuild our mental model of JavaScript together so that you see this bug plain as day.&lt;/p&gt;
+&lt;p&gt;In the next module, we’ll start building mental models for some of the most fundamental JavaScript concepts — values and variables.&lt;/p&gt;</content:encoded></item></channel></rss>
