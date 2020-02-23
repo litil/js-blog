@@ -2,8 +2,8 @@
 
 module.exports = {
   url: 'https://lumen.netlify.com',
-  pathPrefix: '/',
-  title: 'Blog by Guillaume Lambert',
+  pathPrefix: '/js-blog',
+  title: 'Javascript Blog by Guillaume Lambert',
   subtitle: 'I gather here interesting articles about Javascript development',
   copyright: '© All rights reserved.',
   disqusShortname: '',
