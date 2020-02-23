@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
-  "name": "Javascript Blog",
+  "name": "js-blog",
   "description": "I gather here interesting articles about Javascript development",
   "main": "n/a",
   "scripts": {
